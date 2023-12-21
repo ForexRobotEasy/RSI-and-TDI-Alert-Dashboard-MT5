@@ -1,0 +1,119 @@
+
+//+------------------------------------------------------------------+
+//|                                                        RSI and TDI Alert Dashboard MT5                                              |
+//|                                                   Copyright 2022, Forex Robot Easy Team                                       |
+//|                                                       Developer's site: forexroboteasy.com                                |
+//+------------------------------------------------------------------+
+
+#property strict
+
+// Global variables
+string[] currencyPairs = {'EURUSD', 'GBPUSD', 'USDJPY', 'AUDUSD', 'USDCHF'}; // List of currency pairs to monitor
+ENUM_TIMEFRAMES[] timeframes = {PERIOD_M5, PERIOD_M15, PERIOD_H1, PERIOD_H4}; // List of timeframes to monitor
+double[] rsiThresholds = {70, 30}; // RSI threshold levels for potential pullbacks or reversals
+double[] tdiThresholds = {2, -2}; // TDI threshold levels for potential pullbacks or reversals
+
+//+------------------------------------------------------------------+
+//| Custom indicator initialization function                         |
+//+------------------------------------------------------------------+
+int OnInit()
+{
+    // Add code here to initialize the indicator and dashboard
+    
+    return(INIT_SUCCEEDED);
+}
+
+//+------------------------------------------------------------------+
+//| Custom indicator deinitialization function                       |
+//+------------------------------------------------------------------+
+void OnDeinit(const int reason)
+{
+    // Add code here to deinitialize the indicator and dashboard
+}
+
+//+------------------------------------------------------------------+
+//| Custom indicator iteration function                              |
+//+------------------------------------------------------------------+
+void OnCalculate(const int rates_total,
+                 const int prev_calculated,
+                 const datetime& time[],
+                 const double& open[],
+                 const double& high[],
+                 const double& low[],
+                 const double& close[],
+                 const long& tick_volume[],
+                 const long& volume[],
+                 const int& spread[])
+{
+    // Add code here to calculate RSI and TDI values for each currency pair and timeframe
+    
+    // Loop through currency pairs
+    for (int i = 0; i < ArraySize(currencyPairs); i++)
+    {
+        string currencyPair = currencyPairs[i];
+        
+        // Loop through timeframes
+        for (int j = 0; j < ArraySize(timeframes); j++)
+        {
+            ENUM_TIMEFRAMES timeframe = timeframes[j];
+            
+            // Calculate RSI value
+            double rsiValue = iRSI(currencyPair, timeframe, 14, PRICE_CLOSE, 0);
+            
+            // Calculate TDI value
+            double tdiValue = iCustom(currencyPair, timeframe, 'TDI', 0, 0);
+            
+            // Check RSI levels
+            if (rsiValue > rsiThresholds[0])
+            {
+                // Add code here to handle RSI levels above upper threshold
+            }
+            else if (rsiValue < rsiThresholds[1])
+            {
+                // Add code here to handle RSI levels below lower threshold
+            }
+            
+            // Check TDI levels
+            if (tdiValue > tdiThresholds[0])
+            {
+                // Add code here to handle TDI levels above upper threshold
+            }
+            else if (tdiValue < tdiThresholds[1])
+            {
+                // Add code here to handle TDI levels below lower threshold
+            }
+        }
+    }
+}
+
+//+------------------------------------------------------------------+
+//| Custom function to handle RSI levels above upper threshold       |
+//+------------------------------------------------------------------+
+void HandleRSIAboveThreshold(string currencyPair, ENUM_TIMEFRAMES timeframe, double rsiValue)
+{
+    // Add code here to handle RSI levels above upper threshold
+}
+
+//+------------------------------------------------------------------+
+//| Custom function to handle RSI levels below lower threshold       |
+//+------------------------------------------------------------------+
+void HandleRSIBelowThreshold(string currencyPair, ENUM_TIMEFRAMES timeframe, double rsiValue)
+{
+    // Add code here to handle RSI levels below lower threshold
+}
+
+//+------------------------------------------------------------------+
+//| Custom function to handle TDI levels above upper threshold       |
+//+------------------------------------------------------------------+
+void HandleTDIAboveThreshold(string currencyPair, ENUM_TIMEFRAMES timeframe, double tdiValue)
+{
+    // Add code here to handle TDI levels above upper threshold
+}
+
+//+------------------------------------------------------------------+
+//| Custom function to handle TDI levels below lower threshold       |
+//+------------------------------------------------------------------+
+void HandleTDIBelowThreshold(string currencyPair, ENUM_TIMEFRAMES timeframe, double tdiValue)
+{
+    // Add code here to handle TDI levels below lower threshold
+}
